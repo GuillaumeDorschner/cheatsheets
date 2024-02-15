@@ -69,3 +69,4 @@ yum clean packages           # Delete packages saved in cache
 --disablerepo=epel           # Disable a specific repo for a command
 --downloadonly               # Download package to cache but don't install
 ```
+ 
