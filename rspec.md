@@ -1,7 +1,6 @@
 ---
 title: RSpec
 category: Ruby
-layout: 2017/sheet
 ---
 
 ### About
@@ -49,11 +48,11 @@ before :each do
   # before all tests
 end
 
-before do
+before :all do
   # before this suite
 end
 
-after do
+after : all do
   # after this suite
 end
 ```

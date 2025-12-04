@@ -1,7 +1,6 @@
 ---
 title: Bash scripting
 category: CLI
-layout: 2017/sheet
 tags: [Featured]
 updated: 2020-07-05
 keywords:
@@ -15,11 +14,9 @@ keywords:
 ---
 
 ## Getting started
-
 {: .-three-column}
 
 ### Introduction
-
 {: .-intro}
 
 This is a quick reference to getting started with Bash scripting.
@@ -80,7 +77,6 @@ git commit || echo "Commit failed"
 ```
 
 ### Functions
-
 {: id='functions-example'}
 
 ```bash
@@ -94,7 +90,6 @@ echo "You are $(get_name)"
 See: [Functions](#functions)
 
 ### Conditionals
-
 {: id='conditionals-example'}
 
 ```bash
@@ -132,7 +127,6 @@ echo {A,B}.js
 See: [Brace expansion](https://web.archive.org/web/20230207192110/https://wiki.bash-hackers.org/syntax/expansion/brace)
 
 ## Parameter expansions
-
 {: .-three-column}
 
 ### Basics
@@ -181,6 +175,7 @@ echo "${str: -5:5}"  # "world"
 src="/path/to/foo.cpp"
 base=${src##*/}   #=> "foo.cpp" (basepath)
 dir=${src%$base}  #=> "/path/to/" (dirpath)
+dir=${src%/*}     #=> "/path/to" (dirpath)
 ```
 
 ### Prefix name expansion
@@ -270,7 +265,6 @@ echo "${str^^}"  #=> "HELLO WORLD!" (all uppercase)
 Omitting the `:` removes the (non)nullity checks, e.g. `${foo-val}` expands to `val` if unset otherwise `$foo`.
 
 ## Loops
-
 {: .-three-column}
 
 ### Basic for loop
@@ -322,7 +316,6 @@ done
 ```
 
 ## Functions
-
 {: .-three-column}
 
 ### Defining functions
@@ -335,7 +328,7 @@ myfunc() {
 
 ```bash
 # Same as above (alternate syntax)
-function myfunc() {
+function myfunc {
     echo "hello $1"
 }
 ```
@@ -389,7 +382,6 @@ Otherwise, they do exactly the same thing (arguments as separate strings).
 See [Special parameters](https://web.archive.org/web/20230318164746/https://wiki.bash-hackers.org/syntax/shellvars#special_parameters_and_shell_variables).
 
 ## Conditionals
-
 {: .-three-column}
 
 ### Conditions
@@ -519,7 +511,7 @@ Fruits=( "${Fruits[@]/Ap*/}" )          # Remove by regex match
 unset Fruits[2]                         # Remove one item
 Fruits=("${Fruits[@]}")                 # Duplicate
 Fruits=("${Fruits[@]}" "${Veggies[@]}") # Concatenate
-lines=(`cat "logfile"`)                 # Read from file
+words=($(< datafile))                   # From file (split by IFS)
 ```
 
 ### Iteration
@@ -531,7 +523,6 @@ done
 ```
 
 ## Dictionaries
-
 {: .-three-column}
 
 ### Defining
@@ -801,6 +792,30 @@ hello world
 END
 ```
 
+Heredoc allows a section of your source code to be treated as a file. See [Bash Reference Manual](https://www.gnu.org/software/bash/manual/html_node/Redirections.html#Here-Documents).
+
+### Herestring
+
+```sh
+tr '[:lower:]' '[:upper:]' <<< "Will be uppercased, even $variable"
+```
+
+Herestring allows a string to be treated as a standard input (stdin). See [Bash Reference Manual](https://www.gnu.org/software/bash/manual/html_node/Redirections.html#Here-Strings).
+
+### Process substitution
+
+```sh 
+# loop on myfunc output lines
+while read -r line; do
+  echo "$line"
+done < <(myfunc)
+
+# compare content of two folders
+diff <(ls "$dir1") <(ls "$dir2")
+```
+
+Process substitution allows the input (or output) of a command to be treated as a file. See [Bash Reference Manual](https://www.gnu.org/software/bash/manual/html_node/Process-Substitution.html).
+
 ### Reading input
 
 ```bash
@@ -855,7 +870,6 @@ fi
 ```
 
 ## Also see
-
 {: .-one-column}
 
 - [Bash-hackers wiki](https://web.archive.org/web/20230406205817/https://wiki.bash-hackers.org/) _(bash-hackers.org)_
